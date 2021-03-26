@@ -10,7 +10,7 @@ todoButton.addEventListener("click", addTodo);
 todoList.addEventListener("click", deleteTodo);
 filterOption.addEventListener("click", filterTodo);
 
-//Functions
+// addTodo Function
 
 function addTodo(e) {
     //Prevent natural behaviour
@@ -42,6 +42,7 @@ function addTodo(e) {
     todoList.appendChild(todoDiv);
 }
 
+// delteTodo Function
 function deleteTodo(e) {
     const item = e.target;
 
@@ -62,6 +63,7 @@ function deleteTodo(e) {
     }
 }
 
+// filterTodo function
 function filterTodo(e) {
     const todos = todoList.childNodes;
     todos.forEach(function(todo) {
@@ -86,6 +88,7 @@ function filterTodo(e) {
     });
 }
 
+// Save todos to local storage function
 function saveLocalTodos(todo) {
     let todos;
     if (localStorage.getItem("todos") === null) {
@@ -97,6 +100,7 @@ function saveLocalTodos(todo) {
     localStorage.setItem("todos", JSON.stringify(todos));
 }
 
+// Remove todos from local storage
 function removeLocalTodos(todo) {
     let todos;
     if (localStorage.getItem("todos") === null) {
@@ -109,14 +113,35 @@ function removeLocalTodos(todo) {
     localStorage.setItem("todos", JSON.stringify(todos));
 }
 
-function removeLocalTodos(todo) {
+// Get todos function
+function getTodos() {
     let todos;
     if (localStorage.getItem("todos") === null) {
         todos = [];
     } else {
         todos = JSON.parse(localStorage.getItem("todos"));
     }
-    const todoIndex = todo.children[0].innerText;
-    todos.splice(todos.indexOf(todoIndex), 1);
-    localStorage.setItem("todos", JSON.stringify(todos));
+    todos.forEach(function(todo) {
+        //Create todo div
+        const todoDiv = document.createElement("div");
+        todoDiv.classList.add("todo");
+        //Create list
+        const newTodo = document.createElement("li");
+        newTodo.innerText = todo;
+        newTodo.classList.add("todo-item");
+        todoDiv.appendChild(newTodo);
+        todoInput.value = "";
+        //Create Completed Button
+        const completedButton = document.createElement("button");
+        completedButton.innerHTML = `<i class="fas fa-check"></i>`;
+        completedButton.classList.add("complete-btn");
+        todoDiv.appendChild(completedButton);
+        //Create trash button
+        const trashButton = document.createElement("button");
+        trashButton.innerHTML = `<i class="fas fa-trash"></i>`;
+        trashButton.classList.add("trash-btn");
+        todoDiv.appendChild(trashButton);
+        //attach final Todo
+        todoList.appendChild(todoDiv);
+    });
 }
