@@ -31,7 +31,7 @@ function addTodo(event) {
     // Check mark button
     const trashButton = document.createElement('button');
     trashButton.innerHTML = ' <i class = "bi bi-trash" > </i>';
-    trashButton.classList.add('complete-btn');
+    trashButton.classList.add('trash-btn');
     todoDiv.appendChild(trashButton)
 
     // Append to list
